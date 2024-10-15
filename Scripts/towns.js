@@ -1,35 +1,55 @@
 //http://34.147.162.172/Circles/Towns/50
 
 
-var svg d3Draw(dataset){
-    Width = 500;
-    Height = 1000;
-    if ((typeof svf == "undefined")){
-        svg = d3.select("body").append("svg")
-        .attr("width", Width)
-        .attr("Height", Height);
-    } else {
+var svg;
+function d3Draw(dataset){
+Width = 500;
+Height = 300;
+if ((typeof svg == "undefined")){
+    svg = d3.select("body").append("svg")
+    .attr("width", Width)
+    .attr("height", Height);
+} else {
 
-    }
-    var town_circles = svg.selectAll("town circle")
-    .data(dataset)
-    .enter()
-    .append("town circle");
-
-    town_circles
 }
 
-function d3Update(){
-    var town_circles = svg.selectAll("town circle")
+var town_circles = svg.selectAll("circle")
+.data(dataset)
+.enter()
+.append("circle");
+
+town_circles.attr("clng", function(d){
+    return d.lng;
+})
+.attr("clat", function(d){
+    return d.lat;
+})
+.attr("cpop", function(d){
+    return d.pop;
+});
+}
+
+function d3Update(dataset){
+    var town_circles = svg.selectAll("circle")
     .data(dataset)
     .transition()
     .duration(1800)
-    .ease("Elastic");
+    .ease(d3.easeElastic);
+
+    town_circles.attr("clng", function(d){
+        return d.lng;
+    })
+    .attr("clat", function(d){
+        return d.lat;
+    })
+    .attr("cpop", function(d){
+        return d.pop;
+});
 }
 
 function loadData(){
 
-    d3.select("p")
+    d3.select("button")
     .on("click", function(){
 
             updateData();
@@ -56,4 +76,4 @@ function updateData(){
     );
 }
 
-windows.onload= loadData;
+window.onload= loadData;
