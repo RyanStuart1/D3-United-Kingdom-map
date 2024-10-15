@@ -3,12 +3,18 @@
 
 var svg;
 function d3Draw(dataset){
-Width = 500;
-Height = 300;
+height = 800;
+width = 650;
+
 if ((typeof svg == "undefined")){
     svg = d3.select("body").append("svg")
-    .attr("width", Width)
-    .attr("height", Height);
+    .attr("width", width)
+    .attr("height", height)
+    .style("top", 82)
+    .style("centre", 0)
+    .style("z-index", 10)
+    .style("pointer-events", "none")
+    .style("position", "absolute");
 } else {
 
 }
@@ -54,7 +60,7 @@ function loadData(){
 
             updateData();
     });
-    d3.json("http://34.147.162.172/Circles/Towns/500",function(error, data){
+    d3.json("http://34.147.162.172/Circles/Towns/10",function(error, data){
         if (error){
             console.log(error)
         }else{
@@ -66,7 +72,7 @@ function loadData(){
 
 function updateData(){
 
-    d3.json("http://34.147.162.172/Circles/Towns/500", function(error, data){
+    d3.json("http://34.147.162.172/Circles/Towns/10", function(error, data){
         if (error){
             console.log(error)
         }else{
