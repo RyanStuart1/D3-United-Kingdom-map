@@ -6,31 +6,18 @@
         <title>Towns in the United Kingdom</title>
         <link rel="stylesheet" href="Styles/styles.css"/>
         <script type="text/javascript" src="Scripts/d3.v4.js"></script>
-        <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css" />
+        <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css"/>
         <script src="https://js.arcgis.com/4.30/"></script>
-        
-        <script>
-            require(["esri/Map", "esri/views/MapView"], (Map, MapView) => {
-            const map = new Map({
-                basemap: "topo-vector"
-            });
-
-            const view = new MapView({
-                container: "viewDiv",
-                map: map,
-                zoom: 6,
-                center: [-4, 55]
-            });
-        });
-        </script>
+    
+        <!-- Script for map -->        
+        <script type="text/javascript" src="Scripts/map.js"></script>
     </head>
     <body>
-        <h2>AC50002 - Map of the UK</h2>
+        <h1>AC50002 - Towns in the United Kingdom</h1>
         <div id="viewDiv"></div>
+        <slider id="slider"></slider>
         <button class="update-dataset">Click here to update dataset</button>
         <p>Slide the bar to the number of your choice, then click the button!</p>
         <script type="text/javascript" src="Scripts/towns.js"></script>
     </body>
 </html>
-
-<!-- The code to my html file was created using https://developers.arcgis.com/javascript/latest/sample-code/intro-mapview/ as a source! -->

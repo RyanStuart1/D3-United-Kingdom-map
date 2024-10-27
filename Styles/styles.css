@@ -3,6 +3,20 @@ body,
 #viewDiv {
     padding: 10;
     margin: 0 auto;
-    height: 800px;
-    width: 650px;
+    height: 1000px;
+    width: 1000px;
+    color:blanchedalmond;
+    background-color: color-mix(in srgb, purple 70%, red 30%);
+}
+
+button {
+    width: 200px;
+    height: 50px;
+    color: blanchedalmond;
+    background-color: black;
+    border-color: blanchedalmond;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    margin: 10px;
 }
