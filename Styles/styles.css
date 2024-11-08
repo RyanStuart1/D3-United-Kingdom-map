@@ -9,7 +9,14 @@ body,
     background-color: color-mix(in srgb, purple 70%, red 30%);
 }
 
-button {
+p {
+  font-size: 24px; 
+  font-weight: bold; 
+  margin-bottom: 10px;
+}
+
+
+.update-dataset {
     width: 200px;
     height: 50px;
     color: blanchedalmond;
@@ -20,3 +27,82 @@ button {
     -webkit-border-radius: 20px;
     margin: 10px;
 }
+
+/* source: https://www.w3schools.com/howto/howto_js_rangeslider.asp */
+.slidecontainer {
+    padding: 10px;
+    width: 300px;
+    margin: 10px;
+    text-align: left;
+    font-size: 20px;
+  }
+  
+  #slider {
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 5px;
+    background: #ccc;
+    outline: none;
+  }
+  
+  #slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #666;
+    cursor: pointer;
+  }
+  
+  #slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #666;
+    cursor: pointer;
+  }
+  
+  #slider-value {
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+.tooltip {
+  position: absolute;
+  padding: 12px;
+  border: 2px solid aqua;
+  border-radius: 12px;
+  color: red;
+  background-color: grey;
+  pointer-events: none;
+  opacity: .85;
+  z-index: 1;
+}
+
+/* .tooltip .tooltiptext {
+    visibility: hidden;
+    width: fit-content;
+    background-color: #666;
+    color: #f9098f;
+    text-align: center;
+    padding: 5px;
+    border-radius: 3px;
+
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+*/

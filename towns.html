@@ -5,19 +5,23 @@
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
         <title>Towns in the United Kingdom</title>
         <link rel="stylesheet" href="Styles/styles.css"/>
-        <script type="text/javascript" src="Scripts/d3.v4.js"></script>
         <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css"/>
+        <script type="text/javascript" src="Scripts/d3.v4.js"></script> 
         <script src="https://js.arcgis.com/4.30/"></script>
-    
-        <!-- Script for map -->        
-        <script type="text/javascript" src="Scripts/map.js"></script>
+        <script type="text/javascript" src="Scripts/towns.js"></script>     
     </head>
     <body>
+        <script type="text/javascript" src="Scripts/map.js"></script>
         <h1>AC50002 - Towns in the United Kingdom</h1>
         <div id="viewDiv"></div>
-        <slider id="slider"></slider>
+        <div class="tooltip">
+            <span class="tooltiptext"></span>
+        </div>
+        <div class="slidecontainer">
+            <input type="range" min="0" max="500" value="0" id="myRange">
+            <label for="myRange">Value: <span id="slider-value">0</span></label>
+        </div>
         <button class="update-dataset">Click here to update dataset</button>
         <p>Slide the bar to the number of your choice, then click the button!</p>
-        <script type="text/javascript" src="Scripts/towns.js"></script>
     </body>
 </html>
