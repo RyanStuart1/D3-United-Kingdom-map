@@ -1,7 +1,6 @@
 html,
-body, 
 #viewDiv {
-    padding: 10;
+    padding: 0;
     margin: 0 auto;
     height: 1000px;
     width: 1000px;
@@ -12,7 +11,6 @@ body,
 p {
   font-size: 24px; 
   font-weight: bold; 
-  margin-bottom: 10px;
 }
 
 
@@ -72,37 +70,15 @@ p {
 
 .tooltip {
   position: absolute;
-  padding: 12px;
+  padding: 8px;
+  margin: 0px;
   border: 2px solid aqua;
-  border-radius: 12px;
-  color: red;
+  border-radius: 8px;
+  color: aqua;
   background-color: grey;
   pointer-events: none;
-  opacity: .85;
-  z-index: 1;
+  z-index: 100;
+  opacity: 0;
+  width: auto;
+  height: auto;
 }
-
-/* .tooltip .tooltiptext {
-    visibility: hidden;
-    width: fit-content;
-    background-color: #666;
-    color: #f9098f;
-    text-align: center;
-    padding: 5px;
-    border-radius: 3px;
-
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-  }
-*/

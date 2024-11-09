@@ -1,19 +1,28 @@
-//http://34.147.162.172/Circles/Towns/50
-
 var svg; 
 var projection;
+var tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("position", "absolute")
+    .style("padding", "8px")
+    .style("margin", "0px")
+    .style("border", "2px", "solid aqua")
+    .style("border-radius", "8px")
+    .style("color", "aqua")
+    .style("background-color", "grey")
+    .style("pointer-events", "none")
+    .style("z-index", 100)
 
 function d3Draw(dataset){
     height = 1000;
     width = 1000;
-    const scalefactor = 0.01;
+    var scalefactor = 0.01;
 
+    // I used https://stackoverflow.com/questions/42055874/switching-projection-to-d3-geomercator-causes-errors to help create var projection
     projection = d3.geoMercator()
         .center([-4, 55])
         .scale(2590)
-        .translate([width / 2, height / 2]); // I used https://stackoverflow.com/questions/42055874/switching-projection-to-d3-geomercator-causes-errors to help create var projection
+        .translate([width / 2, height / 2]); 
         
-
     if (!svg){
         svg = d3.select("body").append("svg")
         .attr("width", width)
@@ -31,6 +40,7 @@ to help return both longitude and latitude */
         .data(dataset)
         .enter()
         .append("circle")
+        .attr("class", ".tooltip")
         .attr("cx", function(d){
             return projection([d.lng, d.lat])[0];
         })
@@ -42,43 +52,26 @@ to help return both longitude and latitude */
         })
         .attr("fill", "#f9098f")
         .style("stroke","black")
-        .style("stroke-width", 2)
-        .on("mouseover", function(event, d) {
-            d3.select(".tooltiptext")
-                .transition()
-                .duration(200)
-                .style("opacity", 1) 
-                .text(`Town: ${d.Town}, County: ${d.County}, Population: ${d.Population}`); // Set text in tooltip
-        })
-        .on("mousemove", function(event) {
-            d3.select(".tooltip")
-                .style("left", (event.pageX + 10) + "px") 
-                .style("top", (event.pageY + 10) + "px");
-        })
-        .on("mouseout", function() {
-            d3.select(".tooltip")
-                .transition()
-                .duration(200)
-                .style("opacity", 0);
-        });
+        .style("stroke-width", 2);
+
+    attachEventListeners();
 }
 
 function d3Update(dataset){
-    const scalefactor = 0.01;
+    var scalefactor = 0.01;
 
-    const town_circles = svg.selectAll("circle")
-        .data(dataset, function(d) {
+    var town_circles = svg.selectAll("circle")
+        .data(dataset, function(d){
             return d.id;
         });
 
     town_circles.transition()
         .duration(0)
-        //.ease(d3.easeElastic)
-        .attr("cx", function(d) { 
+        .attr("cx", function(d){ 
             return projection([d.lng, d.lat])[0]; })
-        .attr("cy", function(d) { 
+        .attr("cy", function(d){ 
             return projection([d.lng, d.lat])[1]; })
-        .attr("r", function(d) { 
+        .attr("r", function(d){ 
             return Math.sqrt(d.Population) * scalefactor; 
         });
 
@@ -96,20 +89,54 @@ function d3Update(dataset){
         .attr("fill", "#f9098f")
         .style("stroke","black")
         .style("stroke-width", 2.5)
-        //.transition()
-        //.duration(1000)
-        //.ease(d3.easeElastic);
 
     town_circles.exit()
         .transition()
         .duration(1000)
-        .attr("r", 0) // Reduce radius to 0 for smooth removal
-        .remove(); // Remove the element from the DOM after transition
+        .remove()
+        .attr("r", 0); // Reduce radius to 0 
+     
+    attachEventListeners();
+}
+ 
+/* source: https://d3-graph-gallery.com/graph/scatter_tooltip.html
+   source: https://d3-graph-gallery.com/graph/interactivity_tooltip.html
+   source: CHATGPT: helped integrate function attachEventListeners
+*/   
+function attachEventListeners(){
+    svg.selectAll("circle")
+        .style("pointer-events", "all")
+        .on("mouseover", function (event, d){
+            console.log(d.Town); // debug logging
+            d3.select(".tooltip")
+                .transition()
+                .duration(100)
+                .style("opacity", 1)
+                .html(`
+                    <strong>Town:</strong> ${event.Town}<br>
+                    <strong>County:</strong> ${event.County}<br>
+                    <strong>Population:</strong> ${event.Population}`);
+        })
+        .on("mousemove", function(event){
+            d3.select(".tooltip")
+                .style("left", `${d3.mouse(this)[0] + 800}` + "px")
+                .style("top", `${d3.mouse(this)[1] + 100}` + "px")  
+                .html(`<strong>Town:</strong> ${event.Town}<br>
+                       <strong>County:</strong> ${event.County}<br>
+                       <strong>Population:</strong> ${event.Population}`);
+        })
+        .on("mouseout", function(){
+            d3.select(".tooltip")
+                .transition()
+                .duration(200)
+                .style("opacity", 0);
+        });
 }
 
+// source: https://stackoverflow.com/questions/55940670/how-to-get-slider-range-value-and-store-it-in-a-variable-within-javascript
 function loadData(){
-    const slider = document.getElementById("myRange");
-    const sliderValueDisplay = document.getElementById("slider-value");
+    var slider = document.getElementById("myRange");
+    var sliderValueDisplay = document.getElementById("slider-value");
     sliderValueDisplay.textContent = slider.value;
 
     updateData();
@@ -121,11 +148,11 @@ function loadData(){
     }, {passive: true});
 }
 
+// source: https://stackoverflow.com/questions/55940670/how-to-get-slider-range-value-and-store-it-in-a-variable-within-javascript
 function updateData(){   
-
-    let sliderValue = document.getElementById("myRange").value;
+    var sliderValue = document.getElementById("myRange").value;
     document.getElementById("slider-value").textContent = sliderValue;
-    let url = `http://34.147.162.172/Circles/Towns/${sliderValue}`;
+    var url = `http://34.147.162.172/Circles/Towns/${sliderValue}`;
 
     d3.json(url, function(error, data){
         if (error){
